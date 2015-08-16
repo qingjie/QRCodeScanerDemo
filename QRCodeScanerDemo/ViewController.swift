@@ -98,4 +98,23 @@ class ViewController: UIViewController , AVCaptureMetadataOutputObjectsDelegate 
         }
         return path
     }
+    
+    @IBAction func btnLight(sender: AnyObject) {
+        toggleFlash()
+    }
+    
+    func toggleFlash(){
+        let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+        if (device.hasTorch) {
+            device.lockForConfiguration(nil)
+            if (device.torchMode == AVCaptureTorchMode.On) {
+                device.torchMode = AVCaptureTorchMode.Off
+            } else {
+                device.setTorchModeOnWithLevel(1.0, error: nil)
+            }
+            device.unlockForConfiguration()
+        }
+    }
+    
+    
 }
